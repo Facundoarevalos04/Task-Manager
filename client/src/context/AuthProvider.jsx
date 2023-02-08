@@ -15,21 +15,22 @@ const AuthContext = createContext();
     const authUser = async () =>{
       const token = sessionStorage.getItem('token');
       if(!token){
+        setLoading(false)
         return null
-      }
+      };
 
       const config = {
         headers :{
           "Content-Type" : "application/json",
           Authorization: token
         }
-      }
+      };
 
       try{
 
         const {data} = await clientAxios.get('/users/profile', config);
+
         setAuth(data.user)
-        navigate('/projects')
 
       }catch(error){
         console.log(error)
@@ -37,9 +38,9 @@ const AuthContext = createContext();
       }finally{
         setLoading(false)
       }
-    }
+    };
 
-    authUser()
+    authUser();
 
   }, [])
 
@@ -49,6 +50,7 @@ const AuthContext = createContext();
         {
         auth,
         setAuth,
+        loading
       }
     }
     >

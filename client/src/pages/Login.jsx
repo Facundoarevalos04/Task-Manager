@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert } from "../components/Alert";
 import { clientAxios } from "../config/clientAxios";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "../hooks/useForm";
 
 export const Login = () => {
+
   const [alert, setAlert] = useState({});
   const {setAuth} = useAuth()
+  const navigate = useNavigate()
 
   const handleShowAlert = (msg, time = true) => {
     setAlert({
@@ -46,10 +48,10 @@ export const Login = () => {
         password
       })
 
-      //console.log(data)
-
      setAuth(data.user);
      sessionStorage.setItem('token', data.token);
+
+     navigate('/projects');
 
     }catch(error){
       console.error(error);

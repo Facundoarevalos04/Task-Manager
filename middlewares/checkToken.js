@@ -1,5 +1,5 @@
 const errorResponse = require("../helpers/errorResponse");
-const {verify, decode} = require("jsonwebtoken");
+const {verify} = require("jsonwebtoken");
 const createHttpError = require("http-errors");
 const User = require("../database/models/User");
 
@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     try {
 
         if (!req.headers.authorization) {
-            throw createHttpError(401, 'se requiere un token')
+            throw createHttpError(401, 'Se requiere un token')
         };
 
         const token = req.headers.authorization;
@@ -18,18 +18,6 @@ module.exports = async (req, res, next) => {
         next();
         
     } catch (error) {
-
-       /*  console.log(error.message)
-
-        switch (error.message) {
-            case "jwt expired":
-                createHttpError(403, "el token ha expirado")
-                break;
-            case "invalid signature":
-                createHttpError(400, "El token no es valido")
-            break;
-        } */
-
         return errorResponse(res, error, "CHECK-TOKEN");
     };
 };

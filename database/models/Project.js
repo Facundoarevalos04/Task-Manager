@@ -12,9 +12,9 @@ const projectShcema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    dataExpire: {
+    dateExpire: {
         type: Date,
-        default: Data.now(),
+        default: Date.now(),
     },
     client:{
         type: String,
